@@ -1,0 +1,16 @@
+{
+    "name": "diogo/task_manager",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Diogo\\TaskManager\\": "task_manager/",
+            "Model\\": "Model/",
+            "Controller\\": "Controller/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.0",
+        "ext-mbstring": "*"
+    }
+}
