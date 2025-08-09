@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@font-face {
+    font-family: 'TerminaTest-Black';
+    src: url('../fonts/TerminaTest-Black.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+:root {
+    --Blue: #4C8EFF;
+    --Transparent_Blue: rgba(76, 142, 255, 0.5);
+    --Purple: #B67DFF;
+    --Input_Backgrounds: #353535;
+    --White: #EAEAEA;
+    --Text_Gray: #6B6B6B;
+    --Red: rgba(255, 0, 0, 0.5);
+    --Background: #121212;
+    --Background2: #262626;
+    --Background_Gradient: linear-gradient(180deg, #121212 0%, #2A2A2A 100%);
+    --Title_Gradient: linear-gradient(90deg, #4C8EFF 0%, #B67DFF 100%);
+}
