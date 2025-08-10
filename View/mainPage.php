@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Main Page | Task Manager</title>
+        <link rel="stylesheet" href="../templates/assets/css/mainPage.css">
         <link rel="shortcut icon" href="../templates/assets/img/logo.ico" type="image/x-icon">
     </head>
     <body>
