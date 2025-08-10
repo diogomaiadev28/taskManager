@@ -22,4 +22,5 @@
     --Background2: #262626;
     --Background_Gradient: linear-gradient(180deg, #121212 0%, #2A2A2A 100%);
     --Title_Gradient: linear-gradient(90deg, #4C8EFF 0%, #B67DFF 100%);
+    font-size: 62.5%;
 }
