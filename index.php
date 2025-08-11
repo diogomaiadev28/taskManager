@@ -35,11 +35,11 @@
                 <h1>Sign In</h1>
                 <form>
                     <div class="email">
-                        <input class="input" type="text" name="email" id="email" placeholder="Email">
+                        <input class="input" type="email" name="email" id="email" placeholder="Email">
                         <p>Can't be blank</p>
                     </div>
                     <div class="password">
-                        <input class="input" type="text" name="password" id="password" placeholder="Password">
+                        <input class="input" type="password" name="password" id="password" placeholder="Password">
                         <p>Can't be blank</p>
                     </div>
                     <div class="buttonAndSignUp">
@@ -50,5 +50,6 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+        <script src="templates/assets/js/login.js"></script>
     </body>
 </html>
