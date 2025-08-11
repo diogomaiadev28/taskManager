@@ -193,3 +193,94 @@ main{
     cursor: pointer;
     color: var(--White);
 }
+.shadow{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+form{
+    width: 32.1rem;
+    height: 50.7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: center;
+    padding-top: 1.7rem;
+    border-radius: 1.5rem;
+    background-color: var(--Background2);
+    box-shadow: 0 0 1rem var(--Purple);
+    gap: 2rem;
+}
+h1{
+    width: 23.4rem;
+    height: 4rem;
+    font-size: 4rem;
+    font-family: 'montserrat';
+    font-weight: 500;
+    background: var(--Title_Gradient);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#taskName, #description, #day, #month, #year{
+    background-color: var(--Input_Backgrounds);
+    border-style: solid;
+    border-color: var(--Text_Gray);
+    padding-left: 2.1rem;
+    color: var(--White);
+}
+#taskName{
+    width: 24.5rem;
+    height: 5.6rem;
+    border-radius: 0.5rem;
+}
+#description{
+    width: 24.5rem;
+    height: 10.9rem;
+    border-radius: 0.5rem;
+    resize: none;
+    padding-top: 1.6rem;
+}
+#day, #month, #year{
+    width: 8.1rem;
+    height: 5.6rem;
+}
+#month{
+    border-bottom-left-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+}
+#year{
+    border-bottom-right-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+.date{
+    display: flex;
+}
+form button{
+    width: 24.5rem;
+    height: 4.7rem;
+    background-color: var(--Purple);
+    color: var(--White);
+    border-radius: 0.5rem;
+    border-style: none;
+}
+p{
+    font-family: 'montserrat';
+    font-size: 1.6rem;
+    height: 1.6rem;
+    color: rgba(255, 255, 255, 0.2);
+}
+label{
+    font-size: 1.6rem;
+    font-family: 'montserrat';
+    color: #6B6B6B;
+}
+.deadline{
+    gap: 0.6rem;
+}
