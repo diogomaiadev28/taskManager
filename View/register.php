@@ -45,12 +45,12 @@
                         </div>
                     </div>
                     <div class="email">
-                        <input class="input" type="text" name="email" id="email" placeholder="Email">
+                        <input class="input" type="email" name="email" id="email" placeholder="Email">
                         <p class="warning">Can't be blank</p>
                     </div>
                     <div class="passwordAndTerms">
                         <div class="password">
-                            <input class="input" type="text" name="password" id="password" placeholder="Password">
+                            <input class="input" type="password" name="password" id="password" placeholder="Password">
                             <p class="warning">Can't be blank</p>
                         </div>
                         <div class="terms">
@@ -66,5 +66,6 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+        <script src="../templates/assets/js/register.js"></script>
     </body>
 </html>
