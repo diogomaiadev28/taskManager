@@ -1,3 +1,26 @@
+<?php
+session_start();
+
+use Controller\TaskController;
+
+require_once __DIR__ . '/../Config/configuration.php';
+require_once __DIR__ . '/../Controller/TaskController.php';
+
+$userId = $_SESSION['id'];
+
+$task_controller = new TaskController();
+
+$arrayTasks = $task_controller->getTasks($userId);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $taskName = $_POST['taskName'];
+    $description = $_POST['description'];
+    $date = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
+    $result = $task_controller->createTask($userId, $taskName, $description, $date);
+    header('Location: formSent.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,7 +32,7 @@
     </head>
     <body>
         <div class="shadow">
-            <form>
+            <form method="POST">
                 <h1>Create task</h1>
                 <div class="taskName">
                     <input type="text" name="taskName" id="taskName" placeholder="Task Name">
@@ -40,8 +63,8 @@
                     <button>+</button>
                     <div class="profile">
                         <div class="names">
-                            <h2></h2>
-                            <h4></h4>
+                            <h2><?php echo htmlspecialchars($_SESSION['user_fullname'])?></h2>
+                            <h4><?php echo htmlspecialchars($_SESSION['email'])?></h4>
                         </div>
                         <figure class="pImg">
                             <img src="../templates/assets/img/profile.png" alt="Profile icon featuring a simple white outline of a person on a black circular background, conveying a neutral and professional tone, no additional text present" class="pImg">
@@ -55,7 +78,29 @@
                 <div class="today">
                     <h2>Deadline today 🔥</h2>
                     <div class="cont">
-
+                        <?php 
+                            $cont = 0;
+                            foreach ($arrayTasks as $task){
+                                if($task['deadline'] === date('Y-m-d') && $cont<3){
+                                    $formattedDate = substr($task['deadline'], 5,2) . '/' . substr($task['deadline'],8,2) . '/' . substr($task['deadline'],0,4);
+                                    echo '
+                                    <script>console.log('.$task['task_name'].')</script>
+<div class="card">
+    <div class="cardData">
+        <div class="title">
+            <h3>'. $task['task_name'] .'</h3>
+            <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
+        </div>
+        <h5>'. $task['description'] .'</h5>
+        <div class="button">
+            <h4>'. $formattedDate .'</h4>
+            <button class="cardButton">Do</button>
+        </div>
+    </div>
+</div>';
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
                 <div class="tomorrow">
@@ -67,7 +112,7 @@
                 <div class="done">
                     <h2>Done ✅</h2>
                     <div class="cont">
-
+                        
                     </div>
                 </div>
                 <div class="late">

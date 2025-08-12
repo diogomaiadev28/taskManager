@@ -1,3 +1,29 @@
+<?php
+
+use Controller\UserController;
+
+require_once __DIR__ . '/Config/configuration.php';
+require_once __DIR__ . '/Controller/UserController.php';
+
+$user_controller = new UserController();
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $user = $user_controller->loginUser($email, $password);
+
+    if($user){
+        session_start();
+        $_SESSION['id'] = $user['id'];
+        $_SESSION['user_fullname'] = $user['user_fullname'];
+        $_SESSION['email'] = $user['email'];
+        header("Location: View/mainPage.php");
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -33,7 +59,7 @@
             </div>
             <div class="containerRight">
                 <h1>Sign In</h1>
-                <form>
+                <form method="POST">
                     <div class="email">
                         <input class="input" type="email" name="email" id="email" placeholder="Email">
                         <p>Can't be blank</p>

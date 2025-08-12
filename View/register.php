@@ -1,3 +1,21 @@
+<?php
+
+use Controller\UserController;
+
+require_once __DIR__ . '/../Config/configuration.php';
+require_once __DIR__ . '/../Controller/UserController.php';
+
+$user_controller = new UserController();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $userFullName = $_POST['firstName'] . ' ' . $_POST['lastName'];
+    $userEmail = $_POST['email'];
+    $userPassword = $_POST['password'];
+    $result = $user_controller->createUser($userFullName, $userEmail, $userPassword);
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -33,7 +51,7 @@
             </div>
             <div class="containerRight">
                 <h1>Create an account</h1>
-                <form>
+                <form method="POST">
                     <div class="names">
                         <div class="firstName">
                             <input class="name" type="text" name="firstName" id="firstName" placeholder="First Name">
