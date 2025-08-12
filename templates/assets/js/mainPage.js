@@ -21,11 +21,19 @@ pencils.forEach((pencil, index)=>{
         h1.innerHTML = 'Edit task'
         taskName.value = h3[index].innerHTML
         description.value = h5[index].innerHTML
+        month.value = h4[index].innerHTML.slice(0,2)
+        day.value = h4[index].innerHTML.slice(3,5)
+        year.value = h4[index].innerHTML.slice(6,10)
     })
 })
 button.addEventListener('click',()=>{
     shadow.style.visibility = 'visible'
     h1.innerHTML = 'Create task'
+    taskName.value = ''
+    description.value = ''
+    day.value = ''
+    month.value = ''
+    year.value = ''
 })
 form.addEventListener('click',(event)=>{
     event.stopPropagation()

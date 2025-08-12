@@ -20,7 +20,7 @@
                     <p>Max 60 characters.</p>
                 </div>
                 <div class="deadline">
-                    <label for="deadline">Deadline</label>
+                    <p>Deadline<p>
                     <div class="date">
                         <input type="number" name="month" id="month" placeholder="MM">
                         <input type="number" name="day" id="day" placeholder="DD">
@@ -40,8 +40,8 @@
                     <button>+</button>
                     <div class="profile">
                         <div class="names">
-                            <h2>Gabriela Salomão</h2>
-                            <h4>gabrielasalomao.sesiba@gmail.com</h4>
+                            <h2></h2>
+                            <h4></h4>
                         </div>
                         <figure class="pImg">
                             <img src="../templates/assets/img/profile.png" alt="Profile icon featuring a simple white outline of a person on a black circular background, conveying a neutral and professional tone, no additional text present" class="pImg">
@@ -55,177 +55,25 @@
                 <div class="today">
                     <h2>Deadline today 🔥</h2>
                     <div class="cont">
-                        <div class="card">
-                            <div class="cardData">
-                                <div class="title">
-                                    <h3>Finish the school's slide at hello</h3>
-                                    <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                </div>
-                                <h5>Slide about kids health at schools and something just to fullfill the</h5>
-                                <div class="button">
-                                    <h4>08/13/2025</h4>
-                                    <button class="cardButton">Do</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="cardData">
-                                <div class="title">
-                                    <h3>Finish the school's slide at hello</h3>
-                                    <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                </div>
-                                <h5>Slide about kids health at schools and something just to fullfill the</h5>
-                                <div class="button">
-                                    <h4>08/13/2025</h4>
-                                    <button class="cardButton">Do</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="cardData">
-                                <div class="title">
-                                    <h3>Finish the school's slide at hello</h3>
-                                    <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                </div>
-                                <h5>Slide about kids health at schools and something just to fullfill the</h5>
-                                <div class="button">
-                                    <h4>08/13/2025</h4>
-                                    <button class="cardButton">Do</button>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 <div class="tomorrow">
                     <h2>Tomorrow or beyond 🚀</h2>
                     <div class="cont">
-                        <div class="card">
-                            <div class="cardData">
-                                <div class="title">
-                                    <h3>Finish the school's slide at hello</h3>
-                                    <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                </div>
-                                <h5>Slide about kids health at schools and something just to fullfill the</h5>
-                                <div class="button">
-                                    <h4>08/13/2025</h4>
-                                    <button class="cardButton">Do</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="cardData">
-                                <div class="title">
-                                    <h3>Finish the school's slide at hello</h3>
-                                    <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                </div>
-                                <h5>Slide about kids health at schools and something just to fullfill the</h5>
-                                <div class="button">
-                                    <h4>08/13/2025</h4>
-                                    <button class="cardButton">Do</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="cardData">
-                                <div class="title">
-                                    <h3>Finish the school's slide at hello</h3>
-                                    <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                </div>
-                                <h5>Slide about kids health at schools and something just to fullfill the</h5>
-                                <div class="button">
-                                    <h4>08/13/2025</h4>
-                                    <button class="cardButton">Do</button>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 <div class="done">
                     <h2>Done ✅</h2>
                     <div class="cont">
-                        <div class="card">
-                            <div class="cardData">
-                                <div class="title">
-                                    <h3>Finish the school's slide at hello</h3>
-                                    <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                </div>
-                                <h5>Slide about kids health at schools and something just to fullfill the</h5>
-                                <div class="button">
-                                    <h4>08/13/2025</h4>
-                                    <button class="cardButton1">Done</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="cardData">
-                                <div class="title">
-                                    <h3>Finish the school's slide at hello</h3>
-                                    <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                </div>
-                                <h5>Slide about kids health at schools and something just to fullfill the</h5>
-                                <div class="button">
-                                    <h4>08/13/2025</h4>
-                                    <button class="cardButton1">Done</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="cardData">
-                                <div class="title">
-                                    <h3>Finish the school's slide at hello</h3>
-                                    <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                </div>
-                                <h5>Slide about kids health at schools and something just to fullfill the</h5>
-                                <div class="button">
-                                    <h4>08/13/2025</h4>
-                                    <button class="cardButton1">Done</button>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 <div class="late">
                     <h2>Late ❌</h2>
                     <div class="cont">
-                        <div class="card">
-                            <div class="cardData">
-                                <div class="title">
-                                    <h3>Finish the school's slide at hello</h3>
-                                    <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                </div>
-                                <h5>Slide about kids health at schools and something just to fullfill the</h5>
-                                <div class="button">
-                                    <h4>08/13/2025</h4>
-                                    <button class="cardButton2">Expired</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="cardData">
-                                <div class="title">
-                                    <h3>Finish the school's slide at hello</h3>
-                                    <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                </div>
-                                <h5>Slide about kids health at schools and something just to fullfill the</h5>
-                                <div class="button">
-                                    <h4>08/13/2025</h4>
-                                    <button class="cardButton2">Expired</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="cardData">
-                                <div class="title">
-                                    <h3>Finish the school's slide at hello</h3>
-                                    <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                </div>
-                                <h5>Slide about kids health at schools and something just to fullfill the</h5>
-                                <div class="button">
-                                    <h4>08/13/2025</h4>
-                                    <button class="cardButton2">Expired</button>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -233,3 +81,22 @@
         <script src="../templates/assets/js/mainPage.js"></script>
     </body>
 </html>
+
+
+
+
+
+
+<!-- <div class="card">
+    <div class="cardData">
+        <div class="title">
+            <h3>Finish the school's slide at hello</h3>
+            <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
+        </div>
+        <h5>Slide about kids health at schools and something just to fullfill the</h5>
+        <div class="button">
+            <h4>08/13/2025</h4>
+            <button class="cardButton">Do</button>
+        </div>
+    </div>
+</div> -->
