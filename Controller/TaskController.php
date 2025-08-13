@@ -22,5 +22,13 @@ class TaskController {
     public function getTasks($userId){
         return $this->taskModel->getTasks($userId);
     }
+
+    public function updateDoneState($taskId, $done) {
+        return $this->taskModel->updateDoneState($taskId, $done);
+    }
+
+    public function updateTask($taskId, $taskName, $description, $date) {
+        return $this->taskModel->updateTask($taskId, $taskName, $description, $date);
+    }
 }
 ?>

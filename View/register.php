@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $userEmail = $_POST['email'];
     $userPassword = $_POST['password'];
     $result = $user_controller->createUser($userFullName, $userEmail, $userPassword);
+    header('Location: ../index.php');
 }
 ?>
 
