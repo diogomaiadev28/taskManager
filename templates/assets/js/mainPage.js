@@ -11,6 +11,8 @@ const pencils = document.querySelectorAll('.pencil img')
 const h3 = document.querySelectorAll('.title h3')
 const h5 = document.querySelectorAll('.cardData h5')
 const h4 = document.querySelectorAll('.button h4')
+const inputs = document.querySelectorAll('input')
+const formButton = document.querySelector('form button')
 
 shadow.addEventListener('click',()=>{
     shadow.style.visibility = 'hidden'
@@ -37,4 +39,28 @@ button.addEventListener('click',()=>{
 })
 form.addEventListener('click',(event)=>{
     event.stopPropagation()
+})
+form.addEventListener('submit',(e)=>{
+    e.preventDefault()
+    if(checkInputs()){
+        form.submit()
+        window.location.href = 'formSent.php'
+    }
+})
+const checkInputs =()=>{
+    let correct = true
+    inputs.forEach((input)=>{
+        if(input.value === ''){
+            input.style.borderColor = 'red'
+            correct = false
+        } else {
+            input.style.borderColor = 'var(--Text_Gray)'
+        }
+    })
+    return correct
+}
+formButton.addEventListener('click',()=>{
+    if(checkInputs()){
+        formButton.style.visibility = 'hidden'
+    }
 })

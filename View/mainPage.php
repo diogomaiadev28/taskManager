@@ -13,11 +13,15 @@ $task_controller = new TaskController();
 $arrayTasks = $task_controller->getTasks($userId);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $taskName = $_POST['taskName'];
-    $description = $_POST['description'];
-    $date = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
-    $result = $task_controller->createTask($userId, $taskName, $description, $date);
-    header('Location: formSent.php');
+    if(isset($taskName)){
+        $taskName = $_POST['taskName'];
+        $description = $_POST['description'];
+        $date = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
+        $result = $task_controller->createTask($userId, $taskName, $description, $date);
+        header('Location: formSent.php');
+    } else {
+
+    }
 }
 ?>
 
@@ -35,11 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             <form method="POST">
                 <h1>Create task</h1>
                 <div class="taskName">
-                    <input type="text" name="taskName" id="taskName" placeholder="Task Name">
+                    <input type="text" name="taskName" id="taskName" max="35" placeholder="Task Name">
                     <p>Max 35 characters.</p>
                 </div>
                 <div class="description">
-                    <textarea name="description" id="description" placeholder="Description"></textarea>
+                    <textarea name="description" id="description" max="60" placeholder="Description"></textarea>
                     <p>Max 60 characters.</p>
                 </div>
                 <div class="deadline">
@@ -78,26 +82,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                 <div class="today">
                     <h2>Deadline today 🔥</h2>
                     <div class="cont">
-                        <?php 
-                            $cont = 0;
+                        <?php
                             foreach ($arrayTasks as $task){
-                                if($task['deadline'] === date('Y-m-d') && $cont<3){
+                                if($task['deadline'] === date('Y-m-d')){
                                     $formattedDate = substr($task['deadline'], 5,2) . '/' . substr($task['deadline'],8,2) . '/' . substr($task['deadline'],0,4);
                                     echo '
-                                    <script>console.log('.$task['task_name'].')</script>
-<div class="card">
-    <div class="cardData">
-        <div class="title">
-            <h3>'. $task['task_name'] .'</h3>
-            <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-        </div>
-        <h5>'. $task['description'] .'</h5>
-        <div class="button">
-            <h4>'. $formattedDate .'</h4>
-            <button class="cardButton">Do</button>
-        </div>
-    </div>
-</div>';
+                                    <div class="card" id="' . $task['id'] . '">
+                                        <div class="cardData">
+                                            <div class="title">
+                                                <h3>'. $task['task_name'] .'</h3>
+                                                <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
+                                            </div>
+                                            <h5>'. $task['description'] .'</h5>
+                                            <div class="button">
+                                                <h4>'. $formattedDate .'</h4>
+                                                <button class="cardButton">Do</button>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>';
                                 }
                             }
                         ?>
@@ -106,7 +109,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                 <div class="tomorrow">
                     <h2>Tomorrow or beyond 🚀</h2>
                     <div class="cont">
-
+                            <?php
+                            foreach ($arrayTasks as $task){
+                                if($task['deadline'] > date('Y-m-d')){
+                                    $formattedDate = substr($task['deadline'], 5,2) . '/' . substr($task['deadline'],8,2) . '/' . substr($task['deadline'],0,4);
+                                    echo '
+                                    <div class="card">
+                                        <div class="cardData">
+                                            <div class="title">
+                                                <h3>'. $task['task_name'] .'</h3>
+                                                <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
+                                            </div>
+                                            <h5>'. $task['description'] .'</h5>
+                                            <div class="button">
+                                                <h4>'. $formattedDate .'</h4>
+                                                <button class="cardButton">Do</button>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>';
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
                 <div class="done">
@@ -118,7 +142,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                 <div class="late">
                     <h2>Late ❌</h2>
                     <div class="cont">
-                        
+                        <?php
+                            foreach ($arrayTasks as $task){
+                                if($task['deadline'] < date('Y-m-d')){
+                                    $formattedDate = substr($task['deadline'], 5,2) . '/' . substr($task['deadline'],8,2) . '/' . substr($task['deadline'],0,4);
+                                    echo '
+                                    <div class="card">
+                                        <div class="cardData">
+                                            <div class="title">
+                                                <h3>'. $task['task_name'] .'</h3>
+                                                <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
+                                            </div>
+                                            <h5>'. $task['description'] .'</h5>
+                                            <div class="button">
+                                                <h4>'. $formattedDate .'</h4>
+                                                <button class="cardButton">Do</button>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>';
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
             </div>

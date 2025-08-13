@@ -16,7 +16,7 @@ class Task{
 
     public function createTask($userId, $taskName, $description, $date){
         try{
-            $sql = 'INSERT INTO task (user_id, task_name, description, deadline) VALUES (:user_id, :task_name, :description, :deadline)';
+            $sql = 'INSERT INTO task (user_id, task_name, description, deadline, done) VALUES (:user_id, :task_name, :description, :deadline, false))';
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
             $stmt->bindParam(':task_name', $taskName, PDO::PARAM_STR);

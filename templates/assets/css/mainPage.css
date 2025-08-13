@@ -112,6 +112,11 @@ main{
     gap: 2rem;
     background-color: var(--Background2);
     border-radius: 2rem;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.cont::-webkit-scrollbar {
+    display: none;
 }
 .card{
     width: 24.1rem;
