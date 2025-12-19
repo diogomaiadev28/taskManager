@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if($user){
         session_start();
-        $_SESSION['id'] = $user['id'];
+        $_SESSION['id'] = $user['user_id'];
         $_SESSION['user_fullname'] = $user['user_fullname'];
         $_SESSION['email'] = $user['email'];
         header("Location: View/mainPage.php");
