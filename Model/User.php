@@ -21,7 +21,7 @@ class User{
                 throw new Exception('This e-mail is already registered');
             }else{
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                $sql = 'INSERT INTO user (user_fullname, email, password, created_at, done) VALUES (:user_fullname, :email, :password, NOW())';
+                $sql = 'INSERT INTO user (user_fullname, email, password, created_at) VALUES (:user_fullname, :email, :password, NOW())';
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':user_fullname', $userFullName, PDO::PARAM_STR);
                 $stmt->bindParam(':email', $email, PDO::PARAM_STR);

@@ -26,12 +26,7 @@ const checkInputs=()=>{
         }else{
             input.style.borderColor = "var(--Text_Gray)"
             input.nextElementSibling.style.visibility = "hidden"
-            terms.nextElementSibling.style.visibility = "visible"
         }
     })
-    if(!terms.checked && correct){
-        alert("Please accept the terms and conditions.")
-        correct = false
-    }
     return correct
 }

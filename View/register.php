@@ -71,10 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                             <input class="input" type="password" name="password" id="password" placeholder="Password">
                             <p class="warning">Can't be blank</p>
                         </div>
-                        <div class="terms">
-                            <input type="checkbox" name="terms" id="terms">
-                            <p>I agree with the <a href="https://www.fia.com/regulation/category/110">terms and conditions</a></p>
-                        </div>
                     </div>
                     <div class="buttonAndSignUp">
                         <button class="submitBtn" type="submit">Create account</button>
