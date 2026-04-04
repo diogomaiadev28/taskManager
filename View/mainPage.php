@@ -13,14 +13,14 @@ $task_controller = new TaskController();
 $arrayTasks = $task_controller->getTasks($userId);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    if(isset($taskName)){
+    if(isset($_POST['taskName']) and isset($_POST['description']) and isset($_POST['year']) and isset($_POST['month']) and isset($_POST['day'])){
         $taskName = $_POST['taskName'];
         $description = $_POST['description'];
         $date = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
         $result = $task_controller->createTask($userId, $taskName, $description, $date);
         header('Location: formSent.php');
     } else {
-
+        echo '<script>alert("Preencha todos os campos!")</script>';
     }
 }
 ?>
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                                 if($task['deadline'] === date('Y-m-d')){
                                     $formattedDate = substr($task['deadline'], 5,2) . '/' . substr($task['deadline'],8,2) . '/' . substr($task['deadline'],0,4);
                                     echo '
-                                    <div class="card" id="' . $task['id'] . '">
+                                    <div class="card" id="' . $task['task_id'] . '">
                                         <div class="cardData">
                                             <div class="title">
                                                 <h3>'. $task['task_name'] .'</h3>
