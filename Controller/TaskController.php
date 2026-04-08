@@ -19,6 +19,10 @@ class TaskController {
         return $this->taskModel->createTask($userId, $taskName, $description, $date);
     }
 
+    public function editTask($taskId, $taskName, $description, $date): mixed{
+        return $this->taskModel->editTask($taskId, $taskName, $description, $date);
+    }
+
     public function getTasks($userId){
         return $this->taskModel->getTasks($userId);
     }

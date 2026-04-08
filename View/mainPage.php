@@ -8,17 +8,33 @@ require_once __DIR__ . '/../Controller/TaskController.php';
 
 $userId = $_SESSION['id'];
 
+if(empty($userId)) {
+    header('Location: ../index.php');
+    exit();
+}
+
 $task_controller = new TaskController();
 
 $arrayTasks = $task_controller->getTasks($userId);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    if(isset($_POST['taskName']) and isset($_POST['description']) and isset($_POST['year']) and isset($_POST['month']) and isset($_POST['day'])){
-        $taskName = $_POST['taskName'];
-        $description = $_POST['description'];
-        $date = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
-        $result = $task_controller->createTask($userId, $taskName, $description, $date);
-        header('Location: formSent.php');
+    if(isset($_POST['taskName']) and isset($_POST['description']) and isset($_POST['year']) and isset($_POST['month']) and isset($_POST['day']) and isset($_POST['type'])){
+        if($_POST['type'] == 'create') {
+            $taskName = $_POST['taskName'];
+            $description = $_POST['description'];
+            $date = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
+            $result = $task_controller->createTask($userId, $taskName, $description, $date);
+            header('Location: formSent.php');
+            exit;
+        } else {
+            $taskName = $_POST['taskName'];
+            $description = $_POST['description'];
+            $date = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
+            $taskId = $_POST['type'];
+            $result = $task_controller->editTask($userId, $taskName, $description, $date);
+            header('Location: formSent.php');
+            exit;
+        }
     } else {
         echo '<script>alert("Preencha todos os campos!")</script>';
     }
@@ -55,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                     </div>
                     <p>Can't be blank</p>
                 </div>
+                <input type="hidden" name="type" id="type">
                 <button type="submit">Create</button>
             </form>
         </div>
@@ -91,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                                         <div class="cardData">
                                             <div class="title">
                                                 <h3>'. $task['task_name'] .'</h3>
-                                                <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
+                                                <figure class="pencil"><img class="pencil" id="' . $task['task_id'] . '" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
                                             </div>
                                             <h5>'. $task['description'] .'</h5>
                                             <div class="button">
@@ -114,11 +131,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                                 if($task['deadline'] > date('Y-m-d')){
                                     $formattedDate = substr($task['deadline'], 5,2) . '/' . substr($task['deadline'],8,2) . '/' . substr($task['deadline'],0,4);
                                     echo '
-                                    <div class="card">
+                                    <div class="card" id="' . $task['task_id'] . '">
                                         <div class="cardData">
                                             <div class="title">
                                                 <h3>'. $task['task_name'] .'</h3>
-                                                <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
+                                                <figure class="pencil"><img class="pencil" id="' . $task['task_id'] . '" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
                                             </div>
                                             <h5>'. $task['description'] .'</h5>
                                             <div class="button">
@@ -136,7 +153,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                 <div class="done">
                     <h2>Done ✅</h2>
                     <div class="cont">
-                        
+                        <?php
+                            foreach ($arrayTasks as $task){
+                                if($task['done'] == 1){
+                                    $formattedDate = substr($task['deadline'], 5,2) . '/' . substr($task['deadline'],8,2) . '/' . substr($task['deadline'],0,4);
+                                    echo '
+                                    <div class="card" id="' . $task['task_id'] . '">
+                                        <div class="cardData">
+                                            <div class="title">
+                                                <h3>'. $task['task_name'] .'</h3>
+                                                <figure class="pencil"><img class="pencil"  id="' . $task['task_id'] . '" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
+                                            </div>
+                                            <h5>'. $task['description'] .'</h5>
+                                            <div class="button">
+                                                <h4>'. $formattedDate .'</h4>
+                                                <button class="cardButton">Do</button>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>';
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
                 <div class="late">
@@ -147,11 +185,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                                 if($task['deadline'] < date('Y-m-d')){
                                     $formattedDate = substr($task['deadline'], 5,2) . '/' . substr($task['deadline'],8,2) . '/' . substr($task['deadline'],0,4);
                                     echo '
-                                    <div class="card">
+                                    <div class="card" id="' . $task['task_id'] . '">
                                         <div class="cardData">
                                             <div class="title">
                                                 <h3>'. $task['task_name'] .'</h3>
-                                                <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
+                                                <figure class="pencil"><img class="pencil" id="' . $task['task_id'] . '" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
                                             </div>
                                             <h5>'. $task['description'] .'</h5>
                                             <div class="button">

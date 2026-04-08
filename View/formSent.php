@@ -1,4 +1,5 @@
 <?php
 sleep(1);
-header('Location: mainPage.php')
+header('Location: mainPage.php');
+exit;
 ?>

@@ -13,6 +13,7 @@ const h5 = document.querySelectorAll('.cardData h5')
 const h4 = document.querySelectorAll('.button h4')
 const inputs = document.querySelectorAll('input')
 const formButton = document.querySelector('form button')
+const hidden = document.querySelector('#type')
 
 shadow.addEventListener('click',()=>{
     shadow.style.visibility = 'hidden'
@@ -26,6 +27,8 @@ pencils.forEach((pencil, index)=>{
         month.value = h4[index].innerHTML.slice(0,2)
         day.value = h4[index].innerHTML.slice(3,5)
         year.value = h4[index].innerHTML.slice(6,10)
+        formButton.innerHTML = 'Edit'
+        hidden.value = pencil.id
     })
 })
 button.addEventListener('click',()=>{
@@ -36,6 +39,8 @@ button.addEventListener('click',()=>{
     day.value = ''
     month.value = ''
     year.value = ''
+    formButton.innerHTML = 'Create'
+    hidden.value = 'create'
 })
 form.addEventListener('click',(event)=>{
     event.stopPropagation()

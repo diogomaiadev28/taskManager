@@ -27,6 +27,21 @@ class Task{
             return throw new Exception('Error creating task: ' . $e->getMessage());
         }
     }
+
+    public function editTask($taskId, $taskName, $description, $date){
+        try{
+            $sql = 'UPDATE task SET task_id = :task_id, description = :description, deadline = :deadline WHERE task_id = :task_id';
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':task_id', $taskId, PDO::PARAM_INT);
+            $stmt->bindParam(':task_name', $taskName, PDO::PARAM_STR);
+            $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+            $stmt->bindParam(':deadline', $date, PDO::PARAM_STR);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            return throw new Exception('Error creating task: ' . $e->getMessage());
+        }
+    }
+
     public function getTasks($userId){
         try{
             $sql = 'SELECT * FROM task WHERE user_id_fk = :user_id';
