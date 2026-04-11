@@ -211,7 +211,7 @@ main{
     justify-content: center;
     align-items: center;
 }
-form{
+.mainForm{
     width: 32.1rem;
     height: 50.7rem;
     display: flex;
@@ -275,7 +275,19 @@ form button{
     color: var(--White);
     border-radius: 0.5rem;
     border-style: none;
+    cursor: pointer;
 }
+
+.deleteButton{
+    width: 24.5rem;
+    height: 4.7rem;
+    background-color: var(--Red);
+    color: var(--White);
+    border-radius: 0.5rem;
+    border-style: none;
+    cursor: pointer;
+}
+
 p{
     font-family: 'montserrat';
     font-size: 1.6rem;

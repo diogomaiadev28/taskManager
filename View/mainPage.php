@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             $taskName = $_POST['taskName'];
             $description = $_POST['description'];
             $date = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
+            $_POST['taskName'] === null;
             $result = $task_controller->createTask($userId, $taskName, $description, $date);
             header('Location: formSent.php');
             exit;
@@ -30,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             $taskName = $_POST['taskName'];
             $description = $_POST['description'];
             $date = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
+            $_POST['taskName'] === null;
             $taskId = $_POST['type'];
             $result = $task_controller->editTask($userId, $taskName, $description, $date);
             header('Location: formSent.php');
@@ -37,6 +39,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
     } else {
         echo '<script>alert("Preencha todos os campos!")</script>';
+    }
+    if(isset($_POST['done'])) {
+        $task_controller->markTaskDone($_POST['done']);
+        header('Location: formSent.php');
+        exit;
+    }
+    if(isset($_POST['undo'])) {
+        $task_controller->markTaskNotDone($_POST['undo']);
+        header('Location: formSent.php');
+        exit;
+    }
+    if(isset($_POST['deleteAllDones'])){
+        $_POST['deleteAllDones'] == null;
+        $task_controller->deleteAllDones();
+        header('Location: formSent.php');
+        exit;
     }
 }
 ?>
@@ -52,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     </head>
     <body>
         <div class="shadow">
-            <form method="POST">
+            <form class="mainForm" method="POST">
                 <h1>Create task</h1>
                 <div class="taskName">
                     <input type="text" name="taskName" id="taskName" max="35" placeholder="Task Name">
@@ -101,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                     <div class="cont">
                         <?php
                             foreach ($arrayTasks as $task){
-                                if($task['deadline'] === date('Y-m-d')){
+                                if($task['deadline'] === date('Y-m-d') and $task['done'] == 0){
                                     $formattedDate = substr($task['deadline'], 5,2) . '/' . substr($task['deadline'],8,2) . '/' . substr($task['deadline'],0,4);
                                     echo '
                                     <div class="card" id="' . $task['task_id'] . '">
@@ -113,8 +131,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                                             <h5>'. $task['description'] .'</h5>
                                             <div class="button">
                                                 <h4>'. $formattedDate .'</h4>
-                                                <button class="cardButton">Do</button>
-                                                
+                                                <form method="POST">
+                                                    <button name="done" class="cardButton" value="' . $task['task_id'] . '">Do</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>';
@@ -128,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                     <div class="cont">
                             <?php
                             foreach ($arrayTasks as $task){
-                                if($task['deadline'] > date('Y-m-d')){
+                                if($task['deadline'] > date('Y-m-d') and $task['done'] == 0){
                                     $formattedDate = substr($task['deadline'], 5,2) . '/' . substr($task['deadline'],8,2) . '/' . substr($task['deadline'],0,4);
                                     echo '
                                     <div class="card" id="' . $task['task_id'] . '">
@@ -140,8 +159,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                                             <h5>'. $task['description'] .'</h5>
                                             <div class="button">
                                                 <h4>'. $formattedDate .'</h4>
-                                                <button class="cardButton">Do</button>
-                                                
+                                                <form method="POST">
+                                                    <button name="done" class="cardButton" value="' . $task['task_id'] . '">Do</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>';
@@ -153,6 +173,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                 <div class="done">
                     <h2>Done ✅</h2>
                     <div class="cont">
+                        <form method="POST" class="hiddenForm">
+                            <button name="deleteAllDones" class="deleteButton" type="submit" value="1">Delete all dones.</button>
+                        </form>
                         <?php
                             foreach ($arrayTasks as $task){
                                 if($task['done'] == 1){
@@ -167,8 +190,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                                             <h5>'. $task['description'] .'</h5>
                                             <div class="button">
                                                 <h4>'. $formattedDate .'</h4>
-                                                <button class="cardButton">Do</button>
-                                                
+                                                <form class="hiddenForm" method="POST">
+                                                    <button name="undo" class="cardButton2" value="' . $task['task_id'] . '">Undo</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>';
@@ -182,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                     <div class="cont">
                         <?php
                             foreach ($arrayTasks as $task){
-                                if($task['deadline'] < date('Y-m-d')){
+                                if($task['deadline'] < date('Y-m-d') and $task['done'] == 0){
                                     $formattedDate = substr($task['deadline'], 5,2) . '/' . substr($task['deadline'],8,2) . '/' . substr($task['deadline'],0,4);
                                     echo '
                                     <div class="card" id="' . $task['task_id'] . '">
@@ -194,8 +218,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                                             <h5>'. $task['description'] .'</h5>
                                             <div class="button">
                                                 <h4>'. $formattedDate .'</h4>
-                                                <button class="cardButton">Do</button>
-                                                
+                                                <form class="hiddenForm" method="POST">
+                                                    <button name="done" class="cardButton" value="' . $task['task_id'] . '">Do</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>';

@@ -53,6 +53,38 @@ class Task{
             throw new Exception('Error while getting tasks: '. $e->getMessage());
         }
     }
+
+    public function markTaskDone($taskId){
+        try {
+            $sql = 'UPDATE task SET done = 1 WHERE task_id = :task_id';
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':task_id', $taskId, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception('Não foi possível marcar tarefa como feita, erro correspondente: ' . $e);
+        }
+    }
+
+    public function markTaskNotDone($taskId){
+        try {
+            $sql = 'UPDATE task SET done = 0 WHERE task_id = :task_id';
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':task_id', $taskId, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception('Não foi possível marcar tarefa como feita, erro correspondente: ' . $e);
+        }
+    }
+
+    public function deleteAllDones() {
+        try {
+            $sql = 'DELETE FROM task WHERE done = 1';
+            $stmt = $this->db->prepare($sql);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception('Não foi possível deletar todas as tarefas feitas, erro correspondente: ' . $e);
+        }
+    }
 }
 
 ?>

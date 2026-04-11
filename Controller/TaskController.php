@@ -26,5 +26,17 @@ class TaskController {
     public function getTasks($userId){
         return $this->taskModel->getTasks($userId);
     }
+
+    public function markTaskDone($taskId) {
+        return $this->taskModel->markTaskDone($taskId);
+    }
+
+    public function markTaskNotDone($taskId) {
+        return $this->taskModel->markTaskNotDone($taskId);
+    }
+
+    public function deleteAllDones() {
+        return $this->taskModel->deleteAllDones();
+    }
 }
 ?>
