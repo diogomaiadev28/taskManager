@@ -15,27 +15,59 @@ class TaskController {
         $this->taskModel = new Task();
     }
 
-    public function createTask($userId, $taskName, $description, $date): mixed{
-        return $this->taskModel->createTask($userId, $taskName, $description, $date);
+    public function createTask(
+        $userId,
+        $taskName,
+        $description,
+        $date
+    ): bool{
+        return $this->taskModel->createTask(
+            $userId,
+            $taskName,
+            $description,
+            $date
+        );
     }
 
-    public function editTask($taskId, $taskName, $description, $date): mixed{
-        return $this->taskModel->editTask($taskId, $taskName, $description, $date);
+    public function editTask(
+        int $taskId,
+        string $taskName,
+        string $description,
+        string $date
+    ): bool{
+        return $this->taskModel->editTask(
+            $taskId,
+            $taskName,
+            $description,
+            $date
+        );
     }
 
-    public function getTasks($userId){
-        return $this->taskModel->getTasks($userId);
+    public function getTasksFromUser(
+        int $userId
+    ): array{
+        return $this->taskModel->getTasksFromUser(
+            $userId
+        );
     }
 
-    public function markTaskDone($taskId) {
-        return $this->taskModel->markTaskDone($taskId);
+    public function markTaskDone(
+        int $taskId
+    ): bool{
+        return $this->taskModel->markTaskDone(
+            $taskId
+        );
     }
 
-    public function markTaskNotDone($taskId) {
-        return $this->taskModel->markTaskNotDone($taskId);
+    public function markTaskNotDone(
+        int $taskId
+    ): bool{
+        return $this->taskModel->markTaskNotDone(
+            $taskId
+        );
     }
 
-    public function deleteAllDones() {
+    public function deleteAllDones(): bool{
         return $this->taskModel->deleteAllDones();
     }
 }

@@ -8,59 +8,119 @@ require_once __DIR__ . '/../Controller/TaskController.php';
 
 $userId = $_SESSION['id'];
 
-if(empty($userId)) {
+if (empty($userId)) {
     header('Location: ../index.php');
     exit();
 }
 
 $task_controller = new TaskController();
+$arrayTasks = $task_controller->getTasksFromUser($userId);
 
-$arrayTasks = $task_controller->getTasks($userId);
+// Post actions
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    if(isset($_POST['taskName']) and isset($_POST['description']) and isset($_POST['year']) and isset($_POST['month']) and isset($_POST['day']) and isset($_POST['type'])){
-        if($_POST['type'] == 'create') {
-            $taskName = $_POST['taskName'];
-            $description = $_POST['description'];
-            $date = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
-            $_POST['taskName'] === null;
-            $result = $task_controller->createTask($userId, $taskName, $description, $date);
-            header('Location: formSent.php');
-            exit;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (isset($_POST['taskName'], $_POST['description'], $_POST['year'], $_POST['month'], $_POST['day'], $_POST['type'])) {
+
+        $taskName = $_POST['taskName'];
+        $description = $_POST['description'];
+        $date = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
+
+        if ($_POST['type'] === 'create') {
+            $task_controller->createTask($userId, $taskName, $description, $date);
         } else {
-            $taskName = $_POST['taskName'];
-            $description = $_POST['description'];
-            $date = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
-            $_POST['taskName'] === null;
             $taskId = $_POST['type'];
-            $result = $task_controller->editTask($userId, $taskName, $description, $date);
-            header('Location: formSent.php');
-            exit;
+            $task_controller->editTask($taskId, $taskName, $description, $date);
         }
-    } else {
-        echo '<script>alert("Preencha todos os campos!")</script>';
+
+        header('Location: formSent.php');
+        exit;
     }
-    if(isset($_POST['done'])) {
+
+    if (isset($_POST['done'])) {
         $task_controller->markTaskDone($_POST['done']);
         header('Location: formSent.php');
         exit;
     }
-    if(isset($_POST['undo'])) {
+
+    if (isset($_POST['undo'])) {
         $task_controller->markTaskNotDone($_POST['undo']);
         header('Location: formSent.php');
         exit;
     }
-    if(isset($_POST['deleteAllDones'])){
-        $_POST['deleteAllDones'] == null;
+
+    if (isset($_POST['deleteAllDones'])) {
         $task_controller->deleteAllDones();
         header('Location: formSent.php');
         exit;
+    }
+}
+
+// Helpers
+
+function formatDate($date) {
+    return date('d/m/Y', strtotime($date));
+}
+
+function renderTaskCard($task, $formattedDate, $buttonHtml) {
+?>
+    <div class="card" id="<?= $task['task_id'] ?>">
+        <div class="cardData">
+
+            <div class="title">
+                <h3><?= htmlspecialchars($task['task_name']) ?></h3>
+
+                <figure class="pencil">
+                    <img class="pencil"
+                         id="<?= $task['task_id'] ?>"
+                         src="../templates/assets/img/pencil.png"
+                         alt="edit">
+                </figure>
+            </div>
+
+            <h5><?= htmlspecialchars($task['description']) ?></h5>
+
+            <div class="button">
+                <h4><?= $formattedDate ?></h4>
+                <?= $buttonHtml ?>
+            </div>
+
+        </div>
+    </div>
+<?php
+}
+
+// Grouping logic
+
+$today = date('Y-m-d');
+
+$groups = [
+    'today' => [],
+    'future' => [],
+    'done' => [],
+    'late' => []
+];
+
+foreach ($arrayTasks as $task) {
+
+    if ($task['done'] == 1) {
+        $groups['done'][] = $task;
+    }
+    elseif ($task['deadline'] === $today) {
+        $groups['today'][] = $task;
+    }
+    elseif ($task['deadline'] > $today) {
+        $groups['future'][] = $task;
+    }
+    else {
+        $groups['late'][] = $task;
     }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,6 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         <link rel="stylesheet" href="../templates/assets/css/mainPage.css">
         <link rel="shortcut icon" href="../templates/assets/img/icon.ico" type="image/x-icon">
     </head>
+
     <body>
         <div class="shadow">
             <form class="mainForm" method="POST">
@@ -102,8 +163,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                     <button>+</button>
                     <div class="profile">
                         <div class="names">
-                            <h2><?php echo htmlspecialchars($_SESSION['user_fullname'])?></h2>
-                            <h4><?php echo htmlspecialchars($_SESSION['email'])?></h4>
+                            <h2><?= htmlspecialchars($_SESSION['user_fullname'])?></h2>
+                            <h4><?= htmlspecialchars($_SESSION['email'])?></h4>
                         </div>
                         <figure class="pImg">
                             <img src="../templates/assets/img/profile.png" alt="Profile icon featuring a simple white outline of a person on a black circular background, conveying a neutral and professional tone, no additional text present" class="pImg">
@@ -112,144 +173,113 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                 </div>
             </nav>
         </header>
+
         <main>
-            <div class="container">
-                <div class="today">
-                    <h2>Deadline today 🔥</h2>
-                    <div class="cont">
+        <div class="container">
+
+            <div class="today">
+                <h2>Deadline today 🔥</h2>
+                <div class="cont">
+
+                    <?php foreach ($groups['today'] as $task): ?>
+
                         <?php
-                            foreach ($arrayTasks as $task){
-                                if($task['deadline'] === date('Y-m-d') and $task['done'] == 0){
-                                    $formattedDate = substr($task['deadline'], 5,2) . '/' . substr($task['deadline'],8,2) . '/' . substr($task['deadline'],0,4);
-                                    echo '
-                                    <div class="card" id="' . $task['task_id'] . '">
-                                        <div class="cardData">
-                                            <div class="title">
-                                                <h3>'. $task['task_name'] .'</h3>
-                                                <figure class="pencil"><img class="pencil" id="' . $task['task_id'] . '" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                            </div>
-                                            <h5>'. $task['description'] .'</h5>
-                                            <div class="button">
-                                                <h4>'. $formattedDate .'</h4>
-                                                <form method="POST">
-                                                    <button name="done" class="cardButton" value="' . $task['task_id'] . '">Do</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>';
-                                }
-                            }
+                            $date = formatDate($task['deadline']);
+
+                            ob_start();
                         ?>
-                    </div>
-                </div>
-                <div class="tomorrow">
-                    <h2>Tomorrow or beyond 🚀</h2>
-                    <div class="cont">
-                            <?php
-                            foreach ($arrayTasks as $task){
-                                if($task['deadline'] > date('Y-m-d') and $task['done'] == 0){
-                                    $formattedDate = substr($task['deadline'], 5,2) . '/' . substr($task['deadline'],8,2) . '/' . substr($task['deadline'],0,4);
-                                    echo '
-                                    <div class="card" id="' . $task['task_id'] . '">
-                                        <div class="cardData">
-                                            <div class="title">
-                                                <h3>'. $task['task_name'] .'</h3>
-                                                <figure class="pencil"><img class="pencil" id="' . $task['task_id'] . '" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                            </div>
-                                            <h5>'. $task['description'] .'</h5>
-                                            <div class="button">
-                                                <h4>'. $formattedDate .'</h4>
-                                                <form method="POST">
-                                                    <button name="done" class="cardButton" value="' . $task['task_id'] . '">Do</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>';
-                                }
-                            }
-                        ?>
-                    </div>
-                </div>
-                <div class="done">
-                    <h2>Done ✅</h2>
-                    <div class="cont">
-                        <form method="POST" class="hiddenForm">
-                            <button name="deleteAllDones" class="deleteButton" type="submit" value="1">Delete all dones.</button>
-                        </form>
+                            <form method="POST">
+                                <button class="cardButton" name="done" value="<?= $task['task_id'] ?>">Do</button>
+                            </form>
                         <?php
-                            foreach ($arrayTasks as $task){
-                                if($task['done'] == 1){
-                                    $formattedDate = substr($task['deadline'], 5,2) . '/' . substr($task['deadline'],8,2) . '/' . substr($task['deadline'],0,4);
-                                    echo '
-                                    <div class="card" id="' . $task['task_id'] . '">
-                                        <div class="cardData">
-                                            <div class="title">
-                                                <h3>'. $task['task_name'] .'</h3>
-                                                <figure class="pencil"><img class="pencil"  id="' . $task['task_id'] . '" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                            </div>
-                                            <h5>'. $task['description'] .'</h5>
-                                            <div class="button">
-                                                <h4>'. $formattedDate .'</h4>
-                                                <form class="hiddenForm" method="POST">
-                                                    <button name="undo" class="cardButton2" value="' . $task['task_id'] . '">Undo</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>';
-                                }
-                            }
+                            $button = ob_get_clean();
+                            renderTaskCard($task, $date, $button);
                         ?>
-                    </div>
-                </div>
-                <div class="late">
-                    <h2>Late ❌</h2>
-                    <div class="cont">
-                        <?php
-                            foreach ($arrayTasks as $task){
-                                if($task['deadline'] < date('Y-m-d') and $task['done'] == 0){
-                                    $formattedDate = substr($task['deadline'], 5,2) . '/' . substr($task['deadline'],8,2) . '/' . substr($task['deadline'],0,4);
-                                    echo '
-                                    <div class="card" id="' . $task['task_id'] . '">
-                                        <div class="cardData">
-                                            <div class="title">
-                                                <h3>'. $task['task_name'] .'</h3>
-                                                <figure class="pencil"><img class="pencil" id="' . $task['task_id'] . '" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-                                            </div>
-                                            <h5>'. $task['description'] .'</h5>
-                                            <div class="button">
-                                                <h4>'. $formattedDate .'</h4>
-                                                <form class="hiddenForm" method="POST">
-                                                    <button name="done" class="cardButton" value="' . $task['task_id'] . '">Do</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>';
-                                }
-                            }
-                        ?>
-                    </div>
+
+                    <?php endforeach; ?>
+
                 </div>
             </div>
+
+            <div class="tomorrow">
+                <h2>Tomorrow or beyond 🚀</h2>
+                <div class="cont">
+
+                    <?php foreach ($groups['future'] as $task): ?>
+
+                        <?php
+                            $date = formatDate($task['deadline']);
+
+                            ob_start();
+                        ?>
+                            <form method="POST">
+                                <button class="cardButton" name="done" value="<?= $task['task_id'] ?>">Do</button>
+                            </form>
+                        <?php
+                            $button = ob_get_clean();
+                            renderTaskCard($task, $date, $button);
+                        ?>
+
+                    <?php endforeach; ?>
+
+                </div>
+            </div>
+
+            <div class="done">
+                <h2>Done ✅</h2>
+
+                
+                <div class="cont">
+                    <form method="POST">
+                        <button class="deleteButton" name="deleteAllDones">Delete all dones</button>
+                    </form>
+
+                    <?php foreach ($groups['done'] as $task): ?>
+
+                        <?php
+                            $date = formatDate($task['deadline']);
+
+                            ob_start();
+                        ?>
+                            <form method="POST">
+                                <button class="cardButton1" name="undo" value="<?= $task['task_id'] ?>">Undo</button>
+                            </form>
+                        <?php
+                            $button = ob_get_clean();
+                            renderTaskCard($task, $date, $button);
+                        ?>
+
+                    <?php endforeach; ?>
+
+                </div>
+            </div>
+
+            <div class="late">
+                <h2>Late ❌</h2>
+                <div class="cont">
+
+                    <?php foreach ($groups['late'] as $task): ?>
+
+                        <?php
+                            $date = formatDate($task['deadline']);
+
+                            ob_start();
+                        ?>
+                            <form method="POST">
+                                <button class="cardButton2" name="done" value="<?= $task['task_id'] ?>">Do</button>
+                            </form>
+                        <?php
+                            $button = ob_get_clean();
+                            renderTaskCard($task, $date, $button);
+                        ?>
+
+                    <?php endforeach; ?>
+
+                </div>
+            </div>
+
+        </div>
         </main>
         <script src="../templates/assets/js/mainPage.js"></script>
     </body>
 </html>
-
-
-
-
-
-
-<!-- <div class="card">
-    <div class="cardData">
-        <div class="title">
-            <h3>Finish the school's slide at hello</h3>
-            <figure class="pencil"><img class="pencil" src="../templates/assets/img/pencil.png" alt="Pencil icon featuring a simple white outline of a pencil on a black circular background, conveying an editable or update action, no additional text present"></figure>
-        </div>
-        <h5>Slide about kids health at schools and something just to fullfill the</h5>
-        <div class="button">
-            <h4>08/13/2025</h4>
-            <button class="cardButton">Do</button>
-        </div>
-    </div>
-</div> -->
