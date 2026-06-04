@@ -49,7 +49,6 @@ form.addEventListener('submit',(e)=>{
     e.preventDefault()
     if(checkInputs()){
         form.submit()
-        window.location.href = 'formSent.php'
     }
 })
 const checkInputs =()=>{

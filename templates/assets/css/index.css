@@ -1,130 +1,462 @@
 @import 'global.css';
-html,body{
-    height: 100vh;
-    width: 100vw;
+
+:root {
+    font-size: 40%;
 }
+
+html,
 body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--Background_Gradient);
+    margin:0;
 }
-#carouselAuto, .carouselFigure, .carousel-inner figure img{
-    width: 75.6rem;
-    height: 60.9rem;
-}
-#carouselAuto{
+
+body{
     position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:10rem 0;
+
+    min-height:100vh;
+    height: 100%;
+
+    background:var(--Background_Gradient);
 }
+body::before{
+    content:'';
+
+    position:absolute;
+
+    width:60rem;
+    height:60rem;
+
+    border-radius:50%;
+
+    background:#7c3aed;
+
+    filter:blur(180px);
+
+    opacity:.30;
+
+    top:-15rem;
+    left:-10rem;
+
+    z-index:-1;
+}
+
+body::after{
+    content:'';
+
+    position:absolute;
+
+    width:70rem;
+    height:70rem;
+
+    border-radius:50%;
+
+    background:#2196f3;
+
+    filter:blur(220px);
+
+    opacity:.40;
+
+    bottom:0rem;
+    right:0rem;
+
+    z-index:-1;
+}
+
 .container{
-    max-width: none !important;
-    width: 135.4rem !important;
-    height: 60.9rem;
-    display: flex;
-    align-items: center;
-    gap: 4.5rem;
-    margin: 0 !important;
-    padding: 0 !important;
+    width:min(140rem, 90vw);
+    height:80rem;
+
+    display:flex;
+
+    border-radius:3rem;
+
+    overflow:hidden;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.35);
+    backdrop-filter: blur(20px);
+    position:relative;
 }
-h1{
-    height: 6rem;
-    width: 18rem;
-    background: var(--Title_Gradient);
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-family: 'montserrat';
-    font-size: 5rem !important;
-    margin-bottom: -1rem;
-    font-weight: 600 !important;
+.container::before{
+    content:'';
+
+    position:absolute;
+    inset:0;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(255,255,255,.08),
+        transparent 40%
+    );
+
+    pointer-events:none;
 }
-.containerRight{
-    max-width: none !important;
-    width: 52.6rem !important;
-    height: 43.1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 7.3rem;
+
+/* LEFT SIDE */
+
+.leftSide{
+    flex:1.2;
+
+    display:flex;
+    flex-direction:column;
+
+    padding:5rem;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(103,58,183,.15),
+        rgba(33,150,243,.08)
+    );
 }
+
+.logoContainer{
+    margin:0;
+}
+
+.logo{
+    width:9rem;
+}
+
+.leftContent{
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+
+    gap:3rem;
+}
+
+.leftContent h2{
+    font-size:6rem;
+    font-family:'montserrat';
+
+    font-weight:700;
+
+    background:var(--Title_Gradient);
+
+    background-clip:text;
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+.description{
+    max-width:50rem;
+
+    color:var(--White);
+
+    font-size:2rem;
+
+    line-height:1.6;
+
+    visibility:visible !important;
+}
+
+.features{
+    display:flex;
+    flex-direction:column;
+
+    gap:2rem;
+}
+
+.feature{
+    display:flex;
+    align-items:center;
+
+    gap:1.5rem;
+}
+
+.feature span{
+    color:#7c3aed;
+
+    font-size:2.4rem;
+
+    font-weight:bold;
+}
+
+.feature h4{
+    color:white;
+
+    font-family:'montserrat';
+
+    font-size:1.8rem;
+
+    margin:0;
+}
+
+/* RIGHT SIDE */
+
+.rightSide{
+    flex:1;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:4rem;
+}
+
+.loginCard{
+    width:100%;
+    max-width:48rem;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:2.5rem;
+}
+
+.loginCard h1{
+    margin:0;
+
+    width:auto;
+    height:auto;
+
+    font-size:5rem;
+
+    background:var(--Title_Gradient);
+
+    background-clip:text;
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+.loginCard h3{
+    color:var(--Text_Gray);
+
+    font-size:1.8rem;
+
+    font-family:'montserrat';
+
+    font-weight:400;
+
+    margin:0;
+}
+
 form{
-    display: flex;
-    flex-direction: column;
-    gap: 3.2rem;
-    height: 30.8rem;
-    width: 52.6rem;
+    display:flex;
+    flex-direction:column;
+
+    gap:2rem;
 }
+
+.field{
+    display:flex;
+    flex-direction:column;
+
+    gap:.5rem;
+}
+
 input{
-    width: 52.6rem;
-    height: 5.6rem;
-    border-radius: 0.5rem;
-    background: var(--Input_Backgrounds);
-    color: var(--White);
-    font-size: 1.6rem !important;
-    font-family: 'montserrat';
-    border-color: var(--Text_Gray);
-    display: flex;
-    align-items: center;
-    padding-left: 2.1rem;
-    border-style: solid;
+    width:100%;
+    height:6rem;
+
+    border-radius:1rem;
+
+    background:var(--Input_Backgrounds);
+
+    border:1px solid var(--Text_Gray);
+
+    color:white;
+
+    font-size:1.6rem;
+
+    font-family:'montserrat';
+
+    padding:0 2rem;
 }
+
 input:focus{
-    width: 52.6rem;
-    height: 5.6rem;
-    border-radius: 0.5rem;
-    background: var(--Input_Backgrounds);
-    color: var(--White);
-    font-size: 1.6rem !important;
-    font-family: 'montserrat';
-    outline: none;
-    border-color: var(--White);
-    display: flex;
-    align-items: center;
-    padding-left: 2.1rem;
-    border-style: solid;
+    outline:none;
+
+    border-color:white;
 }
-.email, .password{
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+
+.field p{
+    visibility:hidden;
+
+    margin:0;
+
+    color:red;
+
+    font-size:1.4rem;
 }
-p{
-    font-size: 1.6rem;
-    font-family: 'montserrat';
-    color: red;
-    visibility: hidden;
-}
-.buttonAndSignUp{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.4rem;
-}
+
 .submitBtn{
-    width: 52.6rem;
-    height: 6rem;
-    background-color: var(--Purple);
-    color: var(--White);
-    font-size: 1.6rem !important;
-    font-family: 'montserrat';
-    font-weight: bold !important;
-    border-radius: 1rem;
-    border-style: none;
+    width:100%;
+    height:6rem;
+
+    border:none;
+
+    border-radius:1rem;
+
+    background:var(--Purple);
+
+    color:white;
+
+    font-family:'montserrat';
+
+    font-size:1.7rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.2s ease;
 }
+
+.submitBtn:hover{
+    transform:translateY(-2px);
+}
+
 h5{
-    font-family: 'montserrat';
-    font-size: 1.6rem;
-    color: var(--Text_Gray) !important;
-    text-align: center;
+    text-align:center;
+
+    color:var(--Text_Gray);
+
+    font-family:'montserrat';
+
+    font-size:1.6rem;
+
+    margin:0;
 }
+
 h5 a{
-    color: var(--White);
-    font-weight: bolder;
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:700;
 }
-.flogo{
-    position: absolute;
-    top: 2rem;
-    left: 2.4rem;
+
+h5 a:hover{
+    text-decoration:underline;
 }
-.flogo .logo{
-    width: 8.6rem;
-    height: 7.3rem;
+
+@media screen and (max-width: 1200px){
+
+    .container{
+        width:90vw;
+        height:auto;
+    }
+
+    .leftContent h2{
+        font-size:4.8rem;
+    }
+
+    .description{
+        font-size:1.8rem;
+    }
+
+    .loginCard h1{
+        font-size:4rem;
+    }
+
+}
+
+@media screen and (max-width: 900px){
+
+    .container{
+        flex-direction:column;
+        width:90vw;
+        height:auto;
+    }
+
+    .leftSide{
+        padding:4rem;
+    }
+
+    .rightSide{
+        padding:4rem;
+    }
+
+    .leftContent{
+        align-items:center;
+        text-align:center;
+    }
+
+    .description{
+        max-width:none;
+    }
+
+}
+
+@media screen and (max-width: 600px){
+
+    body{
+        padding:2rem;
+    }
+
+    .container{
+        width:100%;
+        border-radius:2rem;
+    }
+
+    .leftSide{
+        padding:2rem;
+    }
+
+    .logo {
+        width: 6rem;
+    }
+
+    .description {
+        font-size: 1.2rem;
+    }
+    
+    .rightSide{
+        padding:2rem;
+    }
+
+    .features{
+        display:none;
+    }
+
+    .leftContent h2{
+        font-size:3.2rem;
+        text-align:center;
+    }
+
+    .description{
+        font-size:1.6rem;
+        text-align:center;
+    }
+
+    .loginCard h1{
+        font-size:3rem;
+    }
+
+    .loginCard h3{
+        font-size:1.5rem;
+    }
+
+    input{
+        height:5rem;
+        font-size:1.4rem;
+    }
+
+    .submitBtn{
+        height:5rem;
+        font-size:1.5rem;
+    }
+
+    h5 {
+        font-size: 1.2rem;
+    }
+
 }

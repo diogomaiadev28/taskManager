@@ -1,0 +1,389 @@
+@import 'global.css';
+
+body{
+    background:var(--Background);
+
+    color:var(--White);
+
+    font-family:'Montserrat';
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+}
+
+button, a {
+    transition: 200ms;
+}
+
+button:hover, a:hover {
+    transition: 200ms;
+    opacity: .8;
+}
+
+.background::before,
+.background::after{
+    content:'';
+
+    position:fixed;
+
+    border-radius:50%;
+
+    filter:blur(200px);
+
+    z-index:-1;
+}
+
+.background::before{
+
+    width:60rem;
+    height:60rem;
+
+    background:#7c3aed;
+
+    top:-20rem;
+    left:-20rem;
+
+    opacity:.18;
+}
+
+.background::after{
+
+    width:70rem;
+    height:70rem;
+
+    background:#4C8EFF;
+
+    bottom:-25rem;
+    right:-25rem;
+
+    opacity:.18;
+}
+
+header{
+
+    width:min(140rem,95vw);
+
+    height:8rem;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo img{
+    width: 6rem;
+}
+
+.backButton{
+
+    border:none;
+
+    border-radius:1rem;
+    
+    background:rgba(255,255,255,.08);
+
+    cursor:pointer;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:1.6rem;
+
+    padding:1rem;
+}
+
+main{
+
+    width:min(140rem,95vw);
+
+    margin:auto;
+
+    padding-bottom:5rem;
+}
+
+.profileCard{
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:3rem;
+
+    backdrop-filter:blur(20px);
+
+    padding:4rem;
+}
+
+.profileHeader{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:4rem;
+}
+
+.profileImage{
+
+    width:15rem;
+    height:15rem;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:4px solid var(--Purple);
+}
+
+.imageContainer{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:1.5rem;
+}
+
+.changePhoto{
+
+    border:none;
+
+    background:var(--Purple);
+
+    color:white;
+
+    padding:1rem 2rem;
+
+    border-radius:1rem;
+
+    cursor:pointer;
+}
+
+.profileInfo h1{
+
+    font-size:5rem;
+
+    background:var(--Title_Gradient);
+
+    background-clip:text;
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+.profileInfo p{
+
+    margin-top:1rem;
+
+    color:var(--Text_Gray);
+
+    font-size:1.8rem;
+}
+
+.badges{
+
+    margin-top:2rem;
+
+    display:flex;
+
+    gap:1rem;
+
+    flex-wrap:wrap;
+}
+
+.badges span{
+
+    padding:1rem 1.5rem;
+
+    background:rgba(255,255,255,.05);
+
+    border-radius:999px;
+
+    font-size:1.4rem;
+}
+
+.stats{
+
+    margin-top:3rem;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:2rem;
+}
+
+.statCard{
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:2rem;
+
+    padding:2rem;
+}
+
+.statCard h2{
+
+    font-size:4rem;
+
+    background:var(--Title_Gradient);
+
+    background-clip:text;
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+.statCard p{
+
+    margin-top:.5rem;
+
+    color:var(--Text_Gray);
+}
+
+.contentGrid{
+
+    margin-top:3rem;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:2rem;
+}
+
+.card{
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:2rem;
+
+    padding:3rem;
+}
+
+.card h3{
+
+    margin-bottom:2rem;
+
+    font-size:2.4rem;
+}
+
+.field{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:.8rem;
+
+    margin-bottom:2rem;
+}
+
+.field label{
+
+    color:var(--Text_Gray);
+
+    font-size:1.4rem;
+}
+
+.field input{
+
+    height:5rem;
+
+    border:none;
+
+    border-radius:1rem;
+
+    padding:0 1.5rem;
+
+    background:var(--Input_Backgrounds);
+
+    color:white;
+}
+
+.primaryButton{
+
+    width:100%;
+
+    height:5rem;
+
+    border:none;
+
+    border-radius:1rem;
+
+    background:var(--Purple);
+
+    color:white;
+
+    cursor:pointer;
+}
+
+.secondaryButton{
+
+    width:100%;
+
+    height:5rem;
+
+    border:none;
+
+    border-radius:1rem;
+
+    margin-top:1rem;
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+    cursor:pointer;
+}
+
+.securityText{
+
+    color:var(--Text_Gray);
+
+    margin-bottom:2rem;
+}
+
+@media(max-width:900px){
+
+    .profileHeader{
+
+        flex-direction:column;
+
+        text-align:center;
+    }
+
+    .stats{
+
+        grid-template-columns:1fr 1fr;
+    }
+
+    .contentGrid{
+
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .stats{
+
+        grid-template-columns:1fr;
+    }
+
+    .profileInfo h1{
+
+        font-size:3.5rem;
+    }
+}

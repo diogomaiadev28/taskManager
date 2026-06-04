@@ -19,9 +19,14 @@ $arrayTasks = $task_controller->getTasksFromUser($userId);
 // Post actions
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    if (isset($_POST['taskName'], $_POST['description'], $_POST['year'], $_POST['month'], $_POST['day'], $_POST['type'])) {
-
+    if (
+        isset($_POST['taskName']) &&
+        isset($_POST['description']) &&
+        isset($_POST['year']) &&
+        isset($_POST['month']) &&
+        isset($_POST['day']) &&
+        isset($_POST['type'])
+    ) {
         $taskName = $_POST['taskName'];
         $description = $_POST['description'];
         $date = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
@@ -59,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Helpers
 
 function formatDate($date) {
-    return date('d/m/Y', strtotime($date));
+    return date('m/d/Y', strtotime($date));
 }
 
 function renderTaskCard($task, $formattedDate, $buttonHtml) {
@@ -116,6 +121,11 @@ foreach ($arrayTasks as $task) {
         $groups['late'][] = $task;
     }
 }
+
+$totalTasks = count($arrayTasks);
+$totalToday = count($groups['today']);
+$totalDone = count($groups['done']);
+$totalLate = count($groups['late']);
 ?>
 
 <!DOCTYPE html>
@@ -160,20 +170,44 @@ foreach ($arrayTasks as $task) {
                     <img src="../templates/assets/img/logoTM.png" alt="Stylized purple and blue wave logo next to bold white text TASK MANAGER on a black background, conveying a modern and energetic tone" class="logo">
                 </figure>
                 <div class="rightNav">
-                    <button>+</button>
+                    <button class="floatingButton">+</button>
                     <div class="profile">
                         <div class="names">
                             <h2><?= htmlspecialchars($_SESSION['user_fullname'])?></h2>
                             <h4><?= htmlspecialchars($_SESSION['email'])?></h4>
                         </div>
-                        <figure class="pImg">
-                            <img src="../templates/assets/img/profile.png" alt="Profile icon featuring a simple white outline of a person on a black circular background, conveying a neutral and professional tone, no additional text present" class="pImg">
-                        </figure>
+                        <a href="profile.php">
+                            <figure class="pImg">
+                                <img src="../templates/assets/img/profile.png" alt="Profile icon featuring a simple white outline of a person on a black circular background, conveying a neutral and professional tone, no additional text present" class="pImg">
+                            </figure>
+                        </a>
                     </div>
                 </div>
             </nav>
         </header>
+        <section class="stats">
 
+            <div class="statCard">
+                <h3><?= $totalTasks ?></h3>
+                <p>Total Tasks</p>
+            </div>
+
+            <div class="statCard">
+                <h3><?= $totalToday ?></h3>
+                <p>Today</p>
+            </div>
+
+            <div class="statCard">
+                <h3><?= $totalDone ?></h3>
+                <p>Done</p>
+            </div>
+
+            <div class="statCard">
+                <h3><?= $totalLate ?></h3>
+                <p>Late</p>
+            </div>
+
+        </section>
         <main>
         <div class="container">
 
@@ -230,10 +264,11 @@ foreach ($arrayTasks as $task) {
 
                 
                 <div class="cont">
-                    <form method="POST">
-                        <button class="deleteButton" name="deleteAllDones">Delete all dones</button>
-                    </form>
-
+                    <?php if(!empty($groups['done'])):?>   
+                        <form method="POST">
+                            <button class="deleteButton" name="deleteAllDones">Delete all dones</button>
+                        </form>
+                    <?php endif;?>
                     <?php foreach ($groups['done'] as $task): ?>
 
                         <?php
